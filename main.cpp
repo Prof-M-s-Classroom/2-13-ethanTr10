@@ -35,11 +35,6 @@ public:
         this->head = new Node<T>(value);
     }
 
-    LinkedList() {
-        this->length = 0;
-        this->head = NULL;
-    }
-
     ~LinkedList() { // DESTRUCTOR the tilde is what signifies the destructor
         Node<T> * current = this->head;
         while (head) { //if head was null then it will NOT run...so while it has something it runs
@@ -181,9 +176,6 @@ int main() {
     student *s4 = new student("D", 23);
 
     LinkedList<student> *ll = new LinkedList<student>(s1);
-
-    // ll->insert(1,s1);//doing the addnode if there is an empty linkedlist
-    // ll->print();
 
     ll->insert(0,s2); //adding at beginning when there is already something there
     ll->print();
