@@ -177,6 +177,12 @@ int main() {
 
     LinkedList<student> *ll = new LinkedList<student>(s1);
 
+    ll->insert(-1,s2); //adding at negative index
+    ll->print();
+
+    ll->insert(7,s2); //adding at too large index
+    ll->print();
+
     ll->insert(0,s2); //adding at beginning when there is already something there
     ll->print();
 
@@ -192,7 +198,7 @@ int main() {
      ll->deleteNode(1); //deleting between two nodes
      ll->print();
 
-    ll->reverselist();
+    ll->reverselist(); //reversing
     ll->print();
 
 
