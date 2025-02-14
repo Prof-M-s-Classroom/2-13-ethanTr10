@@ -156,7 +156,7 @@ public:
         Node<T>* next=NULL;
         curr = head;
         while (curr!=NULL) {
-            next= curr-> nextNode;
+            next= curr-> next;
             curr->next=prev;
             prev=curr;
             curr=next;
@@ -182,8 +182,8 @@ int main() {
 
     LinkedList<student> *ll = new LinkedList<student>(s1);
 
-    ll->insert(1,s1);//doing the addnode if there is an empty linkedlist
-    ll->print();
+    // ll->insert(1,s1);//doing the addnode if there is an empty linkedlist
+    // ll->print();
 
     ll->insert(0,s2); //adding at beginning when there is already something there
     ll->print();
@@ -199,4 +199,11 @@ int main() {
 
      ll->deleteNode(1); //deleting between two nodes
      ll->print();
+
+    ll->reverselist();
+    ll->print();
+
+
+
+
 }
