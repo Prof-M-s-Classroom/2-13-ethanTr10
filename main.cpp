@@ -110,9 +110,7 @@ public:
         //if deleting one in between two
         else {
             Node<T>* temp = head;
-            for (int i=0; i<index-1; i++) {
-                temp=temp->next;
-            }
+            temp=get(index-1);
             Node<T>* theOneToDelete= temp->next;
             temp->next=temp->next->next; //sets the current node's next to be the second node right of it
             delete theOneToDelete;
@@ -143,6 +141,7 @@ public:
 
    void reverselist(){
         //TODO:Write a function to reverse the list using the logic from the slide.
+
     }
 
     void print() {
@@ -159,12 +158,25 @@ int main() {
     student *s1 = new student("A", 20);
     student *s2 = new student("B", 21);
     student *s3 = new student("C", 22);
+    student *s4 = new student("D", 23);
+
     LinkedList<student> *ll = new LinkedList<student>(s1);
-    ll->add(s2);
-    ll->addhead(s3);
+
+    ll->insert(1,s1);//doing the addnode if there is an empty linkedlist
     ll->print();
-    ll->delfirst();
+
+    ll->insert(0,s2); //adding at beginning when there is already something there
     ll->print();
-    ll->dellast();
+
+    ll->insert(2,s3); //adding at the end
+    ll->print();
+
+    ll->insert(1,s4); //adding in between
+    ll-> print();
+
+    ll->deleteNode(0);//deleting the first
+    ll->print();
+
+    ll->deleteNode(1); //deleting between two nodes
     ll->print();
 }
