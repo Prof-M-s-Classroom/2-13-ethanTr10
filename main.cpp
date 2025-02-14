@@ -35,6 +35,11 @@ public:
         this->head = new Node<T>(value);
     }
 
+    LinkedList() {
+        this->length = 0;
+        this->head = NULL;
+    }
+
     ~LinkedList() { // DESTRUCTOR the tilde is what signifies the destructor
         Node<T> * current = this->head;
         while (head) { //if head was null then it will NOT run...so while it has something it runs
@@ -110,7 +115,9 @@ public:
         //if deleting one in between two
         else {
             Node<T>* temp = head;
-            temp=get(index-1);
+            for (int i=0; i<index-1; i++) {
+                temp=temp->next;
+            }
             Node<T>* theOneToDelete= temp->next;
             temp->next=temp->next->next; //sets the current node's next to be the second node right of it
             delete theOneToDelete;
@@ -132,7 +139,10 @@ public:
         }
         else {
             Node<T>* newNode= new Node<T> (value);
-            Node<T>* temp=get(index-1);// -1 because we need the previous node
+            Node<T>* temp=head;
+            for (int i=0; i< index-1; i++) {
+                temp=temp->next;
+            }
             newNode->next= temp->next;
             temp->next= newNode;
             length++;
@@ -141,10 +151,17 @@ public:
 
    void reverselist(){
         //TODO:Write a function to reverse the list using the logic from the slide.
-       Node<T>* prev=NULL;
+        Node<T>* prev=NULL;
         Node<T>* curr=NULL;
         Node<T>* next=NULL;
-
+        curr = head;
+        while (curr!=NULL) {
+            next= curr-> nextNode;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        head=prev;
     }
 
     void print() {
@@ -171,15 +188,15 @@ int main() {
     ll->insert(0,s2); //adding at beginning when there is already something there
     ll->print();
 
-    ll->insert(2,s3); //adding at the end
-    ll->print();
+     ll->insert(2,s3); //adding at the end
+     ll->print();
 
-    ll->insert(1,s4); //adding in between
-    ll-> print();
+     ll->insert(1,s4); //adding in between
+     ll-> print();
 
-    ll->deleteNode(0);//deleting the first
-    ll->print();
+     ll->deleteNode(0);//deleting the first
+     ll->print();
 
-    ll->deleteNode(1); //deleting between two nodes
-    ll->print();
+     ll->deleteNode(1); //deleting between two nodes
+     ll->print();
 }
