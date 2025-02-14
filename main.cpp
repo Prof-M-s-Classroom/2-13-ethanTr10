@@ -141,6 +141,9 @@ public:
 
    void reverselist(){
         //TODO:Write a function to reverse the list using the logic from the slide.
+       Node<T>* prev=NULL;
+        Node<T>* curr=NULL;
+        Node<T>* next=NULL;
 
     }
 
