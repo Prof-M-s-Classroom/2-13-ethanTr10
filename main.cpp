@@ -34,6 +34,16 @@ public:
         this->length = 1;
         this->head = new Node<T>(value);
     }
+
+    ~LinkedList() { // DESTRUCTOR the tilde is what signifies the destructor
+        Node<T> * current = this->head;
+        while (head) { //if head was null then it will NOT run...so while it has something it runs
+            head=head->next;
+            delete current;
+            current=head;
+        }
+    }
+
     void add(T *value) {
         Node<T> *newNode = new Node<T>(value);
         Node<T> *temp = head;
@@ -66,12 +76,69 @@ public:
         length--;
     }
 
+    Node<T>* get(int index) {
+        if (index<0 || index>=length) {
+            return nullptr;
+        }
+        Node<T>* temp =head;
+        for (int i=0; i<index; i++) {
+            temp=temp->next;
+        }
+        return temp;
+    }
+
     void deleteNode(int index) {
        //TODO:Write the function to delete at the given index. Reuse the pre-written functions for edge cases. Account for missing index.
+        if (length==0) {
+            cout<< "The list is already empty, cannot delete anything." <<endl;
+        }
+
+        if (length<=0) {
+            cout<< "The index cannot be negative" <<endl;
+        }
+
+        //edge cases if you delete the beginning
+        if (index==0) {
+            delfirst();
+        }
+
+        //if you delete the last one
+        if (index==(length-1)) {
+            dellast();
+        }
+
+        //if deleting one in between two
+        else {
+            Node<T>* temp = head;
+            for (int i=0; i<index-1; i++) {
+                temp=temp->next;
+            }
+            Node<T>* theOneToDelete= temp->next;
+            temp->next=temp->next->next; //sets the current node's next to be the second node right of it
+            delete theOneToDelete;
+            length--;
+        }
     }
 
    void insert(int index, T *value) {
         //TODO:Write a function to insert a new node at a give index. Reuse the pre-written functions for edge cases. Account for missing index
+        if (index<0 || index>length) {
+            cout<< "Index is invalid" <<endl;
+            return;
+        }
+        if (index==0) {
+            addhead(value);
+        }
+        if (index==length) {
+            add(value);
+        }
+        else {
+            Node<T>* newNode= new Node<T> (value);
+            Node<T>* temp=get(index-1);// -1 because we need the previous node
+            newNode->next= temp->next;
+            temp->next= newNode;
+            length++;
+        }
     }
 
    void reverselist(){
