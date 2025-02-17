@@ -174,6 +174,15 @@ int main() {
 
     LinkedList<student> *ll = new LinkedList<student>(s1);
 
+    ll->print();
+    ll->add(s2);
+    ll->addhead(s3);
+    ll->print();
+    ll->delfirst();
+    ll->print();
+    ll->dellast();
+    ll->print();
+
     ll->insert(-1,s2); //adding at negative index
     ll->print();
 
