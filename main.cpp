@@ -35,15 +35,6 @@ public:
         this->head = new Node<T>(value);
     }
 
-    ~LinkedList() { // DESTRUCTOR the tilde is what signifies the destructor
-        Node<T> * current = this->head;
-        while (head) { //if head was null then it will NOT run...so while it has something it runs
-            head=head->next;
-            delete current;
-            current=head;
-        }
-    }
-
     void add(T *value) {
         Node<T> *newNode = new Node<T>(value);
         Node<T> *temp = head;
@@ -70,9 +61,10 @@ public:
 
     void dellast() {
         Node<T> *temp = head;
-        while (temp->next!=NULL)
+        while (temp->next->next!=nullptr)
             temp = temp->next;
-        delete temp;
+        delete temp->next;
+        temp->next = nullptr;
         length--;
     }
 
@@ -89,32 +81,34 @@ public:
 
     void deleteNode(int index) {
        //TODO:Write the function to delete at the given index. Reuse the pre-written functions for edge cases. Account for missing index.
+
+        //if the linkedlist is empty
         if (length==0) {
-            cout<< "The list is already empty, cannot delete anything." <<endl;
+            cout<< "The list is empty, cannot delete anything" << endl;
+            return;
         }
 
-        if (length<=0) {
-            cout<< "The index cannot be negative" <<endl;
+        //if index is too low or too high
+        else if (index<0 || index>=length) {
+            cout<< "The index does not exist" <<endl;
+            return;
         }
 
-        //edge cases if you delete the beginning
-        if (index==0) {
+        //if you delete the beginning
+        else if (index==0) {
             delfirst();
         }
 
         //if you delete the last one
-        if (index==(length-1)) {
+        else if (index==(length-1)) {
             dellast();
         }
 
         //if deleting one in between two
         else {
-            Node<T>* temp = head;
-            for (int i=0; i<index-1; i++) {
-                temp=temp->next;
-            }
+            Node<T>* temp = get(index-1);
             Node<T>* theOneToDelete= temp->next;
-            temp->next=temp->next->next; //sets the current node's next to be the second node right of it
+            temp->next=theOneToDelete->next; //sets the current node's next to be the second node right of it
             delete theOneToDelete;
             length--;
         }
@@ -126,18 +120,15 @@ public:
             cout<< "Index is invalid" <<endl;
             return;
         }
-        if (index==0) {
+        else if (index==0) {
             addhead(value);
         }
-        if (index==length) {
+        else if (index==length) {
             add(value);
         }
         else {
             Node<T>* newNode= new Node<T> (value);
-            Node<T>* temp=head;
-            for (int i=0; i< index-1; i++) {
-                temp=temp->next;
-            }
+            Node<T>* temp=get(index-1);
             newNode->next= temp->next;
             temp->next= newNode;
             length++;
@@ -146,12 +137,11 @@ public:
 
    void reverselist(){
         //TODO:Write a function to reverse the list using the logic from the slide.
-        Node<T>* prev=NULL;
-        Node<T>* curr=NULL;
-        Node<T>* next=NULL;
-        curr = head;
-        while (curr!=NULL) {
-            next= curr-> next;
+        Node<T> * prev=nullptr;
+        Node<T>* curr=head;
+        Node<T>* next= nullptr;
+        while (curr!=nullptr) {
+            next=curr->next;
             curr->next=prev;
             prev=curr;
             curr=next;
@@ -166,6 +156,7 @@ public:
             temp->print();
             temp = temp->next;
         }
+        cout << "Length: " <<this->length<<endl;
     }
 };
 
@@ -186,21 +177,35 @@ int main() {
     ll->insert(0,s2); //adding at beginning when there is already something there
     ll->print();
 
-     ll->insert(2,s3); //adding at the end
-     ll->print();
+    ll->insert(2,s3); //adding at the end
+    ll->print();
 
-     ll->insert(1,s4); //adding in between
-     ll-> print();
+    ll->insert(1,s4); //adding in between
+    ll-> print();
 
-     ll->deleteNode(0);//deleting the first
-     ll->print();
-
-     ll->deleteNode(1); //deleting between two nodes
-     ll->print();
+    cout<< "Reversing List" << endl;
 
     ll->reverselist(); //reversing
     ll->print();
 
+    ll->deleteNode(-1);//deleting at index too low
+    ll->print();
+
+    ll->deleteNode(4);//deleting at index too high
+    ll->print();
+
+    ll->deleteNode(0);//deleting the first
+    ll->print();
+
+    ll->deleteNode(1); //deleting between two nodes
+    ll->print();
+
+    ll->deleteNode(1);//deleting the last
+    ll->print();
+
+    ll->deleteNode(0);
+    ll->deleteNode(0);// need to see if the correct message pops up when there is nothing left
+    ll->print();
 
 
 
