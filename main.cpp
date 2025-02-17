@@ -37,7 +37,7 @@ public:
     void add(T *value) {
         Node<T> *newNode = new Node<T>(value);
         Node<T> *temp = head;
-        while (temp->next != NULL) {
+        while (temp->next != nullptr) {
             temp = temp->next;
         }
         temp->next = newNode;
