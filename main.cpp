@@ -34,7 +34,6 @@ public:
         this->length = 1;
         this->head = new Node<T>(value);
     }
-
     void add(T *value) {
         Node<T> *newNode = new Node<T>(value);
         Node<T> *temp = head;
@@ -116,16 +115,23 @@ public:
 
    void insert(int index, T *value) {
         //TODO:Write a function to insert a new node at a give index. Reuse the pre-written functions for edge cases. Account for missing index
+        //if index is out of bounds
         if (index<0 || index>length) {
             cout<< "Index is invalid" <<endl;
             return;
         }
+
+        //if inserting node at beginning
         else if (index==0) {
             addhead(value);
         }
+
+        //if inserting node at the end
         else if (index==length) {
             add(value);
         }
+
+        //if inserting between two nodes
         else {
             Node<T>* newNode= new Node<T> (value);
             Node<T>* temp=get(index-1);
@@ -206,7 +212,4 @@ int main() {
     ll->deleteNode(0);
     ll->deleteNode(0);// need to see if the correct message pops up when there is nothing left
     ll->print();
-
-
-
 }
